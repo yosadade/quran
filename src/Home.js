@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, View, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity } from 'react-native'
 import ListSurah from './ListSurah'
 import Axios from 'axios';
+import { Card, CardItem, Thumbnail, Left, Body, Content } from 'native-base';
 
 class Home extends Component {
     constructor(){
@@ -44,12 +45,22 @@ class Home extends Component {
                         data = {this.state.dataSeluruhSurah}
                         renderItem = {({item, key}) =>{
                             return (
-                                <TouchableOpacity key={key} style={styles.content}>
-                                    <Text>{item.nama}</Text>
-                                    <Text>{item.asma}</Text>
-                                    <Text>{item.arti}</Text>
-                                    <Text>{item.keterangan}</Text>
-                                </TouchableOpacity>
+                                <View key={key}>
+                                    <TouchableOpacity style={styles.touchable}>
+                                        <Card>
+                                            <CardItem>
+                                                <Left>
+                                                    <Thumbnail style={styles.thumbnail}/>
+                                                    <Body>
+                                                        <Text numberOfLines={2} style={styles.nama}>{item.nama} / {item.arti}</Text>
+                                                        <Text numberOfLines={1} style={styles.type}>{item.type}</Text>
+                                                        <Text numberOfLines={1} style={styles.ayat}>{item.ayat} ayat</Text>
+                                                    </Body>
+                                                </Left>
+                                            </CardItem>
+                                        </Card>
+                                    </TouchableOpacity>
+                                </View>
                             )
                         }}
                     />
@@ -63,12 +74,10 @@ export default Home
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
         marginTop: 10,
         paddingHorizontal: 20,
         marginTop: 10,
         backgroundColor: '#EBFEFF',
-        flex: 1
     },
     textInput: {
         borderWidth: 1,
@@ -81,13 +90,31 @@ const styles = StyleSheet.create({
         marginTop: 20 
     },
     scrollView: {
-        flex: 1
     },
     content: {
         backgroundColor: '#FFFFFF',
         marginTop: 20,
         borderRadius: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+    },
+    touchable: {
+        borderRadius: 10
+    },
+    thumbnail: {
+        backgroundColor: 'cyan',
+        borderRadius: 10
+    },
+    nama: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        justifyContent: 'center',
+    },
+    type: {
+        fontSize: 12,
+        flex: 1
+    },
+    ayat: {
+        fontSize: 11,
+        flex: 1,
     }
 })

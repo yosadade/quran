@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './Home';
 import Content from './Content';
-import Header from './Header';
 
 const Stack = createStackNavigator();
 
@@ -15,7 +14,6 @@ class AppNavigator extends Component {
                 <Stack.Navigator initialRouteName="Home" headerMode="none">
                     <Stack.Screen name="Home" component={Home}/>
                     <Stack.Screen name="Content" component={Content}/>
-                    <Stack.Screen name="Header" component={Header}/>
                 </Stack.Navigator>
             </NavigationContainer>
         )
