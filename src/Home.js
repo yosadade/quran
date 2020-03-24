@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity, SafeAreaView } from 'react-native'
-import ListSurah from './ListSurah'
+import { ActivityIndicator, Text, StyleSheet, View, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity, SafeAreaView } from 'react-native'
 import Axios from 'axios';
 import { Card, CardItem, Thumbnail, Left, Body, Content } from 'native-base';
+
+import SplashScreen from './SplashScreen'
 
 class Home extends Component {
     constructor(){
@@ -28,6 +29,11 @@ class Home extends Component {
     }
 
     render() {
+        const DATA = this.state.dataSeluruhSurah
+        if (DATA.length===0){
+          // return  <ActivityIndicator size='large' color='grey' style={{marginTop: 300}}></ActivityIndicator>
+          return <SplashScreen />
+        }
         return (
             <View style={styles.container}>
                 <StatusBar 
@@ -47,7 +53,7 @@ class Home extends Component {
                             return (
                                 <View key={index}>
                                     <TouchableOpacity style={styles.touchable}
-                                        onPress = {() => this.props.navigation.navigate('Content', {asma: item.asma})}
+                                        onPress = {() => this.props.navigation.navigate('Content', {asma: item.asma, keterangan: item.keterangan})}
                                     >
                                         <Card>
                                             <CardItem>
@@ -81,6 +87,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginTop: 10,
         backgroundColor: '#EBFEFF',
+    },
+    indicator: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    error: {
+        
     },
     textInput: {
         borderWidth: 1,
