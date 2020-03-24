@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, View, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity, SafeAreaView } from 'react-native'
 import ListSurah from './ListSurah'
 import Axios from 'axios';
 import { Card, CardItem, Thumbnail, Left, Body, Content } from 'native-base';
@@ -22,7 +22,7 @@ class Home extends Component {
            this.setState({
                dataSeluruhSurah : result.data.hasil
            }, () => {
-            // console.log(this.state.dataSeluruhSurah, "new dataSeluruhSurah")
+            // console.log("new dataSeluruhSurah")
            })
         }).catch (err => console.log(err, "fetch API gagal !!"))
     }
@@ -40,13 +40,15 @@ class Home extends Component {
                     placeholder= " Cari Surah"
                     style={styles.textInput}
                 />
-                <ScrollView style={styles.scrollView}>
+                <SafeAreaView style={styles.scrollView}>
                     <FlatList 
                         data = {this.state.dataSeluruhSurah}
-                        renderItem = {({item, key}) =>{
+                        renderItem = {({item, index}) =>{
                             return (
-                                <View key={key}>
-                                    <TouchableOpacity style={styles.touchable}>
+                                <View key={index}>
+                                    <TouchableOpacity style={styles.touchable}
+                                        onPress = {() => this.props.navigation.navigate('Content', {asma: item.asma})}
+                                    >
                                         <Card>
                                             <CardItem>
                                                 <Left>
@@ -63,8 +65,9 @@ class Home extends Component {
                                 </View>
                             )
                         }}
+                      keyExtractor = {(item, index) => index.toString()}
                     />
-                </ScrollView>
+                </SafeAreaView>
            </View>
         )
     }
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     thumbnail: {
-        backgroundColor: 'cyan',
+        backgroundColor: 'grey',
         borderRadius: 10
     },
     nama: {
