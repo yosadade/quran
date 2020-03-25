@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { ActivityIndicator, Text, StyleSheet, View, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity, SafeAreaView } from 'react-native'
 import Axios from 'axios';
 import { Card, CardItem, Thumbnail, Left, Body, Content } from 'native-base';
 
 import SplashScreen from './SplashScreen'
 
-class Home extends Component {
+class Home extends PureComponent {
     constructor(){
         super();
         this.state = {
