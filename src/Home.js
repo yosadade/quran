@@ -67,14 +67,15 @@ class Home extends PureComponent {
         return (
             <View style={styles.container}>
                 <StatusBar 
+                    style={styles.statusbar}
                     barStyle = "dark-content" 
                     hidden = {false} 
-                    backgroundColor = "#EBFEFF" 
+                    backgroundColor = "#00D2B2" 
                     translucent = {true}
                 />
                 <View style={styles.wrapTextInput}>
                     <TextInput 
-                        placeholder= " Cari Surah"
+                        placeholder= " Search Surah ..."
                         style={styles.textInput}
                         onChangeText={this.onHandleInput}
                     />
@@ -94,14 +95,14 @@ class Home extends PureComponent {
                                     <TouchableOpacity style={styles.touchable}
                                         onPress = {() => this.props.navigation.navigate('Content', {asma: item.asma, keterangan: item.keterangan})}
                                     >
-                                        <Card>
-                                            <CardItem>
+                                        <Card style={{borderRadius: 10, marginBottom: 10}}>
+                                            <CardItem style={{borderRadius: 10}}>
                                                 <Left>
-                                                    <Thumbnail style={styles.thumbnail}/>
+                                                    <Text style={styles.nomor}>{item.nomor}</Text>
                                                     <Body>
-                                                        <Text numberOfLines={2} style={styles.nama}>{item.nama} / {item.arti}</Text>
+                                                        <Text numberOfLines={2} style={styles.nama}>{item.nama} | {item.arti} {item.asma}</Text>
                                                         <Text numberOfLines={1} style={styles.type}>{item.type}</Text>
-                                                        <Text numberOfLines={1} style={styles.ayat}>{item.ayat} ayat</Text>
+                                                        <Text style={styles.type}>{item.ayat} Ayat</Text>
                                                     </Body>
                                                 </Left>
                                             </CardItem>
@@ -124,35 +125,31 @@ const styles = StyleSheet.create({
     container: {
         // paddingHorizontal: 20,
         marginTop: 10,
-        backgroundColor: '#EBFEFF',
+        backgroundColor: '#F6F6F6',
     },
     indicator: {
         flex: 1,
         justifyContent: 'center',
     },
-    image: {
-        height: 250,
-        width: null
-    },
-    error: {
-        
-    },
     wrapTextInput: {
         paddingHorizontal: 20,
+        backgroundColor: '#00D2B2',
+        paddingTop: 5
     },
     textInput: {
         borderWidth: 1,
         borderColor: '#E8E8E8',
-        borderRadius: 5,
+        borderRadius: 7,
         height: 40,
         width: '100%',
-        fontSize: 14,
-        backgroundColor: '#E8E8E8',
+        fontSize: 15,
+        backgroundColor: '#F6F6F6',
         marginVertical: 10 ,
         paddingHorizontal: 20,
     },
     scrollView: {
         paddingHorizontal: 20,
+        paddingTop: 10
     },
     content: {
         backgroundColor: '#FFFFFF',
@@ -163,18 +160,18 @@ const styles = StyleSheet.create({
     touchable: {
         borderRadius: 10
     },
-    thumbnail: {
-        backgroundColor: 'grey',
-        borderRadius: 10
+    nomor: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        paddingHorizontal: 5
     },
     nama: {
-        fontSize: 14,
+        fontSize: 17,
         fontWeight: 'bold',
         justifyContent: 'center',
     },
     type: {
-        fontSize: 12,
-        flex: 1
+        fontSize: 14,
     },
     ayat: {
         fontSize: 11,

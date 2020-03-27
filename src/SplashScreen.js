@@ -5,7 +5,8 @@ import { Text, StyleSheet, View, ActivityIndicator } from 'react-native'
 const SplashScreen = () => {
     return (
         <View style={styles.container}>
-            <ActivityIndicator size="large" color="#0000ff" />
+            <Text style={styles.title}>Qurana</Text>
+            <ActivityIndicator size="large" color="#F6F6F6" />
         </View>
     )
 }
@@ -16,6 +17,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#EBFEFF'
+        alignItems: 'center',
+        backgroundColor: '#00D2B2'
+    },
+    title: {
+        fontSize: 55,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
+        marginBottom: 5
     }
 })
