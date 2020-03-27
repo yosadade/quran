@@ -5,11 +5,7 @@ import { Card, CardItem, Thumbnail, Left, Body, Content } from 'native-base';
 
 import SplashScreen from './SplashScreen'
 
-searchedSurah = () => {
-    return this.state.newDataSeluruhSurah && this.state.searchValue
-           ? this.state.newDataSeluruhSurah.length
-           : this.state.dataSeluruhSurah
-}
+
 
 class Home extends PureComponent {
     constructor(){
@@ -53,7 +49,16 @@ class Home extends PureComponent {
     }
 
 
+
+
     render() {
+        const tampilanSurah = () => { return (
+
+            this.state.newDataSeluruhSurah && this.state.searchValue 
+                   ? this.state.newDataSeluruhSurah
+                   : this.state.dataSeluruhSurah
+       )
+        }
         const DATA = this.state.dataSeluruhSurah
         if (DATA.length===0){
           // return  <ActivityIndicator size='large' color='grey' style={{marginTop: 300}}></ActivityIndicator>
@@ -82,7 +87,7 @@ class Home extends PureComponent {
                 </View> */}
                 <SafeAreaView style={styles.scrollView}>
                     <FlatList 
-                        data = {this.state.newDataSeluruhSurah}
+                        data = {tampilanSurah()}
                         renderItem = {({item, index}) =>{
                             return (
                                 <View key={index}>
