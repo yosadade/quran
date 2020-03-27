@@ -1,15 +1,23 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, Text, StyleSheet, View, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity, SafeAreaView } from 'react-native'
+import { Image, Text, StyleSheet, View, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity, SafeAreaView } from 'react-native'
 import Axios from 'axios';
 import { Card, CardItem, Thumbnail, Left, Body, Content } from 'native-base';
 
 import SplashScreen from './SplashScreen'
 
+searchedSurah = () => {
+    return this.state.newDataSeluruhSurah && this.state.searchValue
+           ? this.state.newDataSeluruhSurah.length
+           : this.state.dataSeluruhSurah
+}
+
 class Home extends PureComponent {
     constructor(){
         super();
         this.state = {
-            dataSeluruhSurah : []
+            dataSeluruhSurah : [],
+            searchValue : "",
+            newDataSeluruhSurah: [] 
         }
     }
 
@@ -28,6 +36,23 @@ class Home extends PureComponent {
         }).catch (err => console.log(err, "fetch API gagal !!"))
     }
 
+    onHandleInput = (e) => {
+        // console.log(e, "target")
+        this.setState({
+            searchValue: e
+        }, () => {
+            if(this.state.dataSeluruhSurah){
+                const searchedSurah = this.state.dataSeluruhSurah.filter(item => (
+                    item.nama.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) > -1
+                ))
+                this.setState({
+                    newDataSeluruhSurah : searchedSurah
+                })
+            }
+        })
+    }
+
+
     render() {
         const DATA = this.state.dataSeluruhSurah
         if (DATA.length===0){
@@ -42,13 +67,22 @@ class Home extends PureComponent {
                     backgroundColor = "#EBFEFF" 
                     translucent = {true}
                 />
-                <TextInput 
-                    placeholder= " Cari Surah"
-                    style={styles.textInput}
-                />
+                <View style={styles.wrapTextInput}>
+                    <TextInput 
+                        placeholder= " Cari Surah"
+                        style={styles.textInput}
+                        onChangeText={this.onHandleInput}
+                    />
+                </View>
+                {/* <View>
+                    <Image 
+                        source={{uri: 'https://cdn.dribbble.com/users/1961582/screenshots/10787461/media/782043814b94984cf85baea4e255dff9.jpg'}}
+                        style={styles.image}
+                    />
+                </View> */}
                 <SafeAreaView style={styles.scrollView}>
                     <FlatList 
-                        data = {this.state.dataSeluruhSurah}
+                        data = {this.state.newDataSeluruhSurah}
                         renderItem = {({item, index}) =>{
                             return (
                                 <View key={index}>
@@ -83,8 +117,7 @@ export default Home
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
-        paddingHorizontal: 20,
+        // paddingHorizontal: 20,
         marginTop: 10,
         backgroundColor: '#EBFEFF',
     },
@@ -92,8 +125,15 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
+    image: {
+        height: 250,
+        width: null
+    },
     error: {
         
+    },
+    wrapTextInput: {
+        paddingHorizontal: 20,
     },
     textInput: {
         borderWidth: 1,
@@ -102,10 +142,12 @@ const styles = StyleSheet.create({
         height: 40,
         width: '100%',
         fontSize: 14,
-        backgroundColor: '#FFFFFF',
-        marginTop: 20 
+        backgroundColor: '#E8E8E8',
+        marginVertical: 10 ,
+        paddingHorizontal: 20,
     },
     scrollView: {
+        paddingHorizontal: 20,
     },
     content: {
         backgroundColor: '#FFFFFF',
