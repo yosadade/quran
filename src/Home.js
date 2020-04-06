@@ -1,24 +1,25 @@
 import React, { PureComponent } from 'react'
 import { Image, Text, StyleSheet, View, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity, SafeAreaView } from 'react-native'
 import Axios from 'axios';
-import { Card, CardItem, Thumbnail, Left, Body, Content } from 'native-base';
+import { Card, CardItem, Left, Body } from 'native-base';
 
+import { ActionStatusBar } from '../src/components/Action/Action'
 import SplashScreen from './SplashScreen'
 
-
-
 class Home extends PureComponent {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             dataSeluruhSurah : [],
             searchValue : "",
-            newDataSeluruhSurah: [] 
+            newDataSeluruhSurah: [],
+            dataIsiSurah: []
         }
     }
 
     componentDidMount(){
         this.getDataSurah()
+        this.getDataIsiSurah()
     }
 
     getDataSurah = () => {
@@ -30,6 +31,18 @@ class Home extends PureComponent {
             // console.log("new dataSeluruhSurah")
            })
         }).catch (err => console.log(err, "fetch API gagal !!"))
+    }
+
+    getDataIsiSurah = (nomor) => {
+        Axios.get(`https://api.banghasan.com/quran/format/json/surat`)
+        .then(result => {
+            // console.log(result.data.ayat.data.ar)
+            this.setState({
+                dataIsiSurah: result.daya.ayat.data.ar
+            }, () => {
+                console.log(dataIsiSurah)
+            })
+        }).catch (err => (err, "fetch API gagal !!"))
     }
 
     onHandleInput = (e) => {
@@ -66,13 +79,7 @@ class Home extends PureComponent {
         }
         return (
             <View style={styles.container}>
-                <StatusBar 
-                    style={styles.statusbar}
-                    barStyle = "dark-content" 
-                    hidden = {false} 
-                    backgroundColor = "#00D2B2" 
-                    translucent = {true}
-                />
+                <ActionStatusBar />
                 <View style={styles.wrapTextInput}>
                     <TextInput 
                         placeholder= " Search Surah ..."
@@ -91,9 +98,9 @@ class Home extends PureComponent {
                         data = {tampilanSurah()}
                         renderItem = {({item, index}) =>{
                             return (
-                                <View key={index}>
+                                <View key={index} dataIsiSurah={this.props.dataIsiSurah}>
                                     <TouchableOpacity style={styles.touchable}
-                                        onPress = {() => this.props.navigation.navigate('Content', {asma: item.asma, keterangan: item.keterangan})}
+                                        onPress = {() => this.props.navigation.navigate('Content', {asma: item.asma, keterangan: item.keterangan, nama: item.nama, teks: item.teks})}
                                     >
                                         <Card style={{borderRadius: 10, marginBottom: 10}}>
                                             <CardItem style={{borderRadius: 10}}>
@@ -163,7 +170,8 @@ const styles = StyleSheet.create({
     nomor: {
         fontSize: 22,
         fontWeight: 'bold',
-        paddingHorizontal: 5
+        paddingHorizontal: 5,
+        color: '#00D2B2'
     },
     nama: {
         fontSize: 17,

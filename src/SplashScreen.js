@@ -1,12 +1,21 @@
 import React from 'react'
-import { Text, StyleSheet, View, ActivityIndicator } from 'react-native'
-
+import { Text, StyleSheet, View, ActivityIndicator, StatusBar, Image } from 'react-native'
+import { WaveIndicator, DotIndicator } from 'react-native-indicators'
 
 const SplashScreen = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Qurana</Text>
-            <ActivityIndicator size="large" color="#F6F6F6" />
+            <StatusBar 
+                style={styles.statusbar}
+                barStyle = "dark-content" 
+                hidden = {true} 
+                backgroundColor = "#00D2B2" 
+                translucent = {true}
+            />
+            <View style={{flex: 1}}>
+                <Text style={styles.title}>Qurana</Text>
+                <DotIndicator color="#F6F6F6" size={7} style={styles.indicator}/>
+            </View>
         </View>
     )
 }
@@ -21,9 +30,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#00D2B2'
     },
     title: {
-        fontSize: 55,
+        fontSize: 70,
         fontWeight: 'bold',
         color: '#FFFFFF',
-        marginBottom: 5
+        top: 320
+    },
+    indicator: {
     }
 })
