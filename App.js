@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import AppNavigator from './src/AppNavigator';
-import { StatusBar } from 'react-native';
+import AppNavigator from './src/navigation/AppNavigator';
 
 class App extends Component {
   render() {

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, CardItem, Thumbnail, Left, Body, Content } from 'native-base';
 
-const ListSurah = ({props, navigation}) => {
+const HomeContent = ({props, navigation}) => {
     const { asma, nama, type, ayat, arti } = props.item
     return (
         <View>
@@ -26,7 +26,7 @@ const ListSurah = ({props, navigation}) => {
     )
 }
 
-export default ListSurah
+export default HomeContent
 
 const styles = StyleSheet.create({
     container: {

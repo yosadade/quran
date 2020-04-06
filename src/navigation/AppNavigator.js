@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Home from './Home';
-import Content from './Content';
-import SplashScreen from './SplashScreen'
+import Home from '../screens/Homescreen/Home';
+import Content from '../screens/Content';
+import SplashScreen from '../screens/Splashscreen/SplashScreen'
 
 const Stack = createStackNavigator();
 

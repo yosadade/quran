@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, StatusBar } from 'react-native'
 import { Button, Icon } from 'native-base'
 
-import { ActionStatusBar } from '../src/components/Action/Action'
+import { ActionStatusBar } from '../components/Action/Action'
 
 const Content = ({route, navigation }) => {
   const { asma, keterangan, nama } = route.params
